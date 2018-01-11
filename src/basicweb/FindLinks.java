@@ -1,5 +1,6 @@
 package basicweb;
 
+import org.apache.xpath.SourceTree;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +24,7 @@ public class FindLinks {
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
-        baseUrl = "https://www.expedia.com/";
+        baseUrl = "https://rozetka.com.ua/";
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -32,7 +33,18 @@ public class FindLinks {
     @Test
     public void testFindLinks() {
         driver.get(baseUrl);
-//        SearchPage.navigateToFlightsTab();
+//        SearchPage.navigateToFlightsTab(driver);
+
+        List<WebElement> linkList = clickableLinks(driver);
+        for (WebElement link : linkList) {
+            String href = link.getAttribute("href");
+            try {
+                System.out.println("URL " + href + " returned " + linkStatus(new URL(href)));
+            }
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static List<WebElement> clickableLinks(WebDriver driver) {
@@ -40,11 +52,11 @@ public class FindLinks {
         List<WebElement> elements = driver.findElements(By.tagName("a"));
         elements.addAll(driver.findElements(By.tagName("img")));
 
-//        for (WebElement e : elements) {
-//            if (e.getAttribute("href", ! = null) {
-//                linksToClick.add(e);
-//            }
-//        }
+        for (WebElement e : elements) {
+            if (e.getAttribute("href") !=null) {
+                linksToClick.add(e);
+            }
+        }
         return linksToClick;
     }
 
