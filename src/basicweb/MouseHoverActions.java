@@ -20,6 +20,7 @@ public class MouseHoverActions {
 
     @Before
     public void setUp() throws Exception {
+
         driver = new FirefoxDriver();
         baseUrl = "https://letskodeit.teachable.com/p/practice";
         jse = (JavascriptExecutor)driver;
